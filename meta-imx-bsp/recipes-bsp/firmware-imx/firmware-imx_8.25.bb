@@ -168,4 +168,4 @@ FILES:${PN}-hdmi = " \
 FILES:${PN}-vpu-amphion = "${nonarch_base_libdir}/firmware/amphion/vpu/*"
 FILES:${PN}-vpu-wave = "${nonarch_base_libdir}/firmware/wave633c_codec_fw.bin"
 
-COMPATIBLE_MACHINE = "(imx-generic-bsp)"
+COMPATIBLE_MACHINE = "(imx-generic-bsp|mx8-generic-bsp)"
