@@ -122,6 +122,6 @@ INSANE_SKIP:mx7-nxp-bsp:append = " 32bit-time"
 
 S = "${WORKDIR}/git"
 
-COMPATIBLE_MACHINE = "(imx-nxp-bsp)"
+COMPATIBLE_MACHINE = "(imx-nxp-bsp|mx8-nxp-bsp|mx6-nxp-bsp)"
 
 ########### End of i.MX overrides #########
