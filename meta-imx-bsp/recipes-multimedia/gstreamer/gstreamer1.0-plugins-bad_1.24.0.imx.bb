@@ -219,6 +219,6 @@ EXTRA_OEMESON:remove = " \
     -Dkate=disabled \
 "
 
-COMPATIBLE_MACHINE = "(imx-nxp-bsp|mx8-nxp-bsp)"
+COMPATIBLE_MACHINE = "(imx-nxp-bsp|mx8-nxp-bsp|mx6-nxp-bsp)"
 
 ########### End of i.MX overrides #########
