@@ -26,7 +26,7 @@ do_install:append () {
     done
 }
 
-do_deploy:append() {
+do_deploy:aarch64() {
     install -d ${DEPLOYDIR}/${MLPREFIX}optee
     for plat in ${OPTEEOS_CONFIG}; do
         install -m 644 ${D}${nonarch_base_libdir}/firmware/* ${DEPLOYDIR}/${MLPREFIX}optee
