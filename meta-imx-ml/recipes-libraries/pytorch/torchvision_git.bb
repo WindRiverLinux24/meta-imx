@@ -7,7 +7,7 @@ DEPENDS = "python3 python3-pip-native python3-wheel-native"
 RDEPENDS:${PN} += "pytorch python3-numpy python3-future python3-pillow python3-requests libjpeg-turbo"
 
 PV = "0.15.1"
-PYV = "cp311"
+PYV = "cp312"
 
 PYTORCH_SRC ?= "git://github.com/nxp-imx/pytorch-release.git;protocol=https"
 SRCBRANCH = "lf-6.6.3_1.0.0"
@@ -20,8 +20,16 @@ inherit python3native
 
 S = "${WORKDIR}/git"
 
+WHL = "${S}/whl/torchvision-0.15.1-cp311-cp311-linux_aarch64.whl"
+
 do_install(){
     install -d ${D}/${PYTHON_SITEPACKAGES_DIR}
+
+    if [ -e ${WHL} ]; then
+	cp ${WHL} ${S}/whl/torchvision-0.15.1-${PYV}-${PYV}-linux_aarch64.whl
+    else
+	bberror "${WHL} doesn't exist!"
+    fi
 
     ${STAGING_BINDIR_NATIVE}/pip3 install --disable-pip-version-check -v --platform linux_${TARGET_ARCH} \
         -t ${D}/${PYTHON_SITEPACKAGES_DIR} --no-cache-dir --no-deps \
