@@ -4,6 +4,7 @@ LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=9c57cfb31165de565a47b65b896391c2"
 
 PV = "2.0.0"
+PYV = "cp312"
 
 DEPENDS = "python3 python3-pip-native python3-wheel-native"
 RDEPENDS:${PN} += "python3-core python3-numpy python3-future python3-typing-extensions python3-pillow numactl libjpeg-turbo lcms openjpeg"
@@ -20,9 +21,17 @@ inherit python3native
 
 S = "${WORKDIR}/git"
 
+WHL = "${S}/whl/torch-2.0.0-cp311-cp311-linux_aarch64.whl"
+
 do_install(){
     install -d ${D}${bindir}
     install -d ${D}${bindir}/${PN}/examples
 
     install -m 0555 ${S}/examples/* ${D}${bindir}/${PN}/examples
+
+    if [ -e ${WHL} ]; then
+	cp ${WHL} ${S}/whl/torch-2.0.0-${PYV}-${PYV}-linux_aarch64.whl
+    else
+	bberror "${WHL} doesn't exist!"
+    fi
 }
