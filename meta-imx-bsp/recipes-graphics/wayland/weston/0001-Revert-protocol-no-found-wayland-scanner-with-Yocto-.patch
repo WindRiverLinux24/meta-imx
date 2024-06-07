@@ -6,6 +6,8 @@ Subject: [PATCH] Revert "protocol: no found wayland-scanner with Yocto
 
 This reverts commit 7859a762617682bd804e210ad3bda6bdcd3ea24a.
 
+Upstream-Status: Pending
+
 With openembedded commit e525db4eb9 ("wayland: update 1.20.0 -> 1.21.0")
 package config seems no longer to provide the path to the native
 weston scanner.

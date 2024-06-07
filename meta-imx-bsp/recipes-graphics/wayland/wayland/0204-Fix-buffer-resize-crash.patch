@@ -47,6 +47,8 @@ text (typically from a ssh session).
 This CL enforces the requirement that the connection buffer must
 be greater than the net_size.
 
+Upstream-Status: Pending
+
 For more context see below.
 https://gitlab.freedesktop.org/wayland/wayland/-/merge_requests/188#note_2010874
 

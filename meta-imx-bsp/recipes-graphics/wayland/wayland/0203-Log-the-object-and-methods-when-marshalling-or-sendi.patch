@@ -7,6 +7,8 @@ Subject: [PATCH 3/5] Log the object and methods when marshalling or sending
 The log that appears before a display_error will be captured as crash
 signature.
 
+Upstream-Status: Pending
+
 Bug: 1451333
 Change-Id: I06a0a1294c5431d0f8261e522aaa469e2c427725
 ---
