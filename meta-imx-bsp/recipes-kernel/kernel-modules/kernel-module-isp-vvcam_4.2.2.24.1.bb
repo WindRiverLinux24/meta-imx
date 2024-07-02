@@ -11,6 +11,8 @@ SRCREV = "2102360b58d9d1b36bc0c654c8301e4014b33951"
 
 S = "${WORKDIR}/git/vvcam/v4l2"
 
+MODULES_MODULE_SYMVERS_LOCATION = "dwe"
+
 inherit module
 
 DEBUG_PREFIX_MAP:prepend = " \
