@@ -162,10 +162,10 @@ do_compile() {
     # mkimage for i.MX8
     # Copy TEE binary to SoC target folder to mkimage
     if ${DEPLOY_OPTEE}; then
-        cp ${DEPLOY_DIR_IMAGE}/tee${OPTEEOS_CONFIG}.bin ${BOOT_STAGING}/tee.bin
+	cp ${DEPLOY_DIR_IMAGE}/teeimx-${UBOOT_CONFIG}.bin ${BOOT_STAGING}/tee.bin
         if ${DEPLOY_OPTEE_STMM}; then
             # Copy tee.bin to tee.bin-stmm
-            cp ${DEPLOY_DIR_IMAGE}/tee${OPTEEOS_CONFIG}.bin ${BOOT_STAGING}/tee.bin-stmm
+            cp ${DEPLOY_DIR_IMAGE}/teeimx-${UBOOT_CONFIG}.bin ${BOOT_STAGING}/tee.bin-stmm
         fi
     fi
     # Copy OEI firmware to SoC target folder to mkimage
@@ -276,7 +276,7 @@ do_deploy() {
 
     # copy tee.bin to deploy path
     if ${DEPLOY_OPTEE}; then
-        install -m 0644 ${DEPLOY_DIR_IMAGE}/tee${OPTEEOS_CONFIG}.bin ${DEPLOYDIR}/${BOOT_TOOLS}/tee.bin
+	install -m 0644 ${DEPLOY_DIR_IMAGE}/teeimx-${UBOOT_CONFIG}.bin ${DEPLOYDIR}/${BOOT_TOOLS}/tee.bin
     fi
 
     # copy oei to deploy path
