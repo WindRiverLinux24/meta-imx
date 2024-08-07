@@ -98,3 +98,16 @@ PREFERRED_VERSION_opencv:mx9-nxp-bsp ??= "4.8.1.imx"
 
 SOC_DEFAULT_IMAGE_FSTYPES = "wic.bmap wic.zst tar.zst"
 ZSTD_COMPRESSION_LEVEL ?= "-10"
+
+# DPDK extra SDK
+MACHINE_EXTRA_RRECOMMENDS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'dpdk', 'kernel-module-dpdk-extras', '', d)}"
+
+# NXP WiFi firmware & extra Wlan SDK
+MACHINE_EXTRA_RRECOMMENDS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'nxpiw416-sdio', 'nxp-wlan-sdk', '', d)}"
+MACHINE_EXTRA_RRECOMMENDS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'nxpiw612-sdio', 'nxp-wlan-sdk', '', d)}"
+
+MACHINE_FIRMWARE:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'nxpwifi-all-sdio', 'firmware-nxp-wifi-all-sdio', '', d)}"
+MACHINE_EXTRA_RRECOMMENDS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'nxpwifi-all-sdio', 'nxp-wlan-sdk kernel-module-nxp-wlan', '', d)}"
+
+MACHINE_FIRMWARE:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'nxpwifi-all-pcie', 'firmware-nxp-wifi-all-pcie', '', d)}"
+MACHINE_EXTRA_RRECOMMENDS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'nxpwifi-all-pcie', 'nxp-wlan-sdk kernel-module-nxp-wlan', '', d)}"
