@@ -1,13 +1,13 @@
-FILESEXTRAPATHS:prepend:mx8-nxp-bsp := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend:imx-nxp-bsp := "${THISDIR}/${PN}:"
 
-DEPENDS:append:mx8-nxp-bsp = " readline"
+DEPENDS:append:imx-nxp-bsp = " readline"
 
 # Add defconfig for NXP Wi-Fi version
-SRC_URI:append:mx8-nxp-bsp = " file://defconfig"
+SRC_URI:append:imx-nxp-bsp = " file://defconfig"
 
-PACKAGECONFIG:append:mx8-nxp-bsp := " openssl"
+PACKAGECONFIG:append:imx-nxp-bsp := " openssl"
 
-do_configure:prepend:mx8-nxp-bsp () {
+do_configure:prepend:imx-nxp-bsp () {
         # Overwrite defconfig with NXP Wi-Fi version
         install -m 0755 ${WORKDIR}/defconfig wpa_supplicant/defconfig
 
