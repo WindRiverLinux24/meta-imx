@@ -1,5 +1,5 @@
 # Freescale i.MX SOC extra configuration udev rules
-FILESEXTRAPATHS:prepend:imx-nxp-bsp := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}/imx-nxp-bsp:"
 
 SRC_URI:append:mx6-nxp-bsp = " file://blacklist.conf "
 SRC_URI:append:mx7-nxp-bsp = " file://blacklist.conf"
