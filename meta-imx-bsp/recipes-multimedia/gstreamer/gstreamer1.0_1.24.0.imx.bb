@@ -107,6 +107,6 @@ S = "${WORKDIR}/git"
 
 PACKAGECONFIG[tests] = "-Dtests=enabled,-Dtests=disabled"
 
-COMPATIBLE_MACHINE = "(imx-nxp-bsp|mx8-nxp-bsp|mx6-nxp-bsp)"
+COMPATIBLE_MACHINE = "(imx-nxp-bsp|mx8-nxp-bsp|mx6-nxp-bsp|mx93-nxp-bsp)"
 
 ########### End of i.MX overrides #########
