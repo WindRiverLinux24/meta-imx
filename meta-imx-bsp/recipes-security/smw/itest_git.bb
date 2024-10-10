@@ -10,7 +10,7 @@ DEPENDS = "imx-secure-enclave"
 SRC_URI = "${ITEST_SRC};branch=${SRCBRANCH}"
 ITEST_SRC ?= "git://github.com/nxp-imx/itest.git;protocol=https"
 SRCBRANCH = "itest_ele"
-SRCREV = "267e78b6a982d871c1a89992417a26c3c3c6fcdb"
+SRCREV = "ebfd6df14d5ec87de7a9cd0ee1747b9c8eff07ec"
 
 S = "${WORKDIR}/git"
 
@@ -22,4 +22,4 @@ EXTRA_OECMAKE = " \
     -DLIB_PATH="${STAGING_DIR_HOST}${libdir}""
 EXTRA_OECMAKE:append:mx95-nxp-bsp = " -DV2X=1"
 
-COMPATIBLE_MACHINE = "(mx8ulp-nxp-bsp|mx93-nxp-bsp|mx95-nxp-bsp)"
+COMPATIBLE_MACHINE = "(mx8ulp-nxp-bsp|mx91-nxp-bsp|mx93-nxp-bsp|mx95-nxp-bsp)"

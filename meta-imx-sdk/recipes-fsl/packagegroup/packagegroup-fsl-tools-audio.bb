@@ -1,5 +1,5 @@
 # Copyright (C) 2015 Freescale Semiconductor
-# Copyright 2017-2020,2022 NXP
+# Copyright 2017-2020,2022,2024 NXP
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 SUMMARY = "Set of audio tools for inclusion on images"
@@ -29,8 +29,10 @@ PULSEAUDIO_INSTALL = " \
                                            "", d)} \
 "
 
-ASRC_INSTALL ?= ""
-ASRC_INSTALL:mx8-nxp-bsp = "imx-dspc-asrc"
+# for synchronous and asynchronous sample rate converter
+SRC_INSTALL ?= ""
+SRC_INSTALL:mx8-nxp-bsp = "imx-dspc-asrc"
+SRC_INSTALL:mx9-nxp-bsp = "nxp-ssrc"
 
 PDM_INSTALL ?= ""
 PDM_INSTALL:mx8m-nxp-bsp = "imx-sw-pdm"
@@ -38,6 +40,7 @@ PDM_INSTALL:mx8m-nxp-bsp = "imx-sw-pdm"
 NXPAFE_INSTALL ?= ""
 NXPAFE_INSTALL:mx8mm-nxp-bsp = "nxp-afe nxp-afe-voiceseeker"
 NXPAFE_INSTALL:mx8mp-nxp-bsp = "nxp-afe nxp-afe-voiceseeker"
+NXPAFE_INSTALL:mx8ulp-nxp-bsp = "nxp-afe nxp-afe-voiceseeker"
 NXPAFE_INSTALL:mx93-nxp-bsp = "nxp-afe nxp-afe-voiceseeker"
 NXPAFE_INSTALL:mx95-nxp-bsp = "nxp-afe nxp-afe-voiceseeker"
 
@@ -51,7 +54,7 @@ SOFTOOLS_INSTALL:mx8ulp-nxp-bsp = "sof-tools"
 RDEPENDS:${PN} = " \
     ${@bb.utils.contains("DISTRO_FEATURES", "alsa",  "${ALSA_INSTALL}", "", d)} \
     ${@bb.utils.contains("DISTRO_FEATURES", "pulseaudio",  "${PULSEAUDIO_INSTALL}", "", d)} \
-    ${ASRC_INSTALL} \
+    ${SRC_INSTALL} \
     ${PDM_INSTALL} \
     ${NXPAFE_INSTALL} \
     ${SOFTOOLS_INSTALL} \

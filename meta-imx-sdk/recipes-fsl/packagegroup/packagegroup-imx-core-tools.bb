@@ -7,9 +7,16 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 inherit packagegroup
 
-KERNEL_TEST_TOOLS      = "kernel-tools-iio kernel-tools-pci spidev-test"
-KERNEL_TEST_TOOLS:mx8m-nxp-bsp = "kernel-tools-iio kernel-tools-pci spidev-test kernel-tools-virtio"
-
+PIPEWIRE_TOOLS = " \
+    pipewire \
+    pipewire-pulse \
+    pipewire-spa-tools \
+    pipewire-tools \
+    ${PIPEWIRE_V4L2} \
+"
+PIPEWIRE_V4L2 = "pipewire-v4l2"
+PIPEWIRE_V4L2:mx6-nxp-bsp = ""
+PIPEWIRE_V4L2:mx7-nxp-bsp = ""
 
 RDEPENDS:${PN} = " \
     can-utils \
@@ -22,10 +29,14 @@ RDEPENDS:${PN} = " \
     e2fsprogs-resize2fs \
     fbset \
     fsl-rc-local \
-    iproute2 \
+    iproute2 iproute2-tc \
     iw \
     i2c-tools \
-    ${KERNEL_TEST_TOOLS} \
+    kernel-tools-iio \
+    kernel-tools-pci \
+    kernel-tools-virtio \
+    kernel-tools-vsock \
+    spidev-test \
     libgpiod-tools \
     linuxptp \
     memtester \
@@ -35,11 +46,7 @@ RDEPENDS:${PN} = " \
     mtd-utils-ubifs \
     nano \
     parted \
-    pipewire \
-    pipewire-spa-tools \
-    pipewire-tools \
-    pipewire-pulse \
-    pipewire-v4l2 \
+    ${PIPEWIRE_TOOLS} \
     procps \
     ptpd \
     ntp \
@@ -48,3 +55,4 @@ RDEPENDS:${PN} = " \
     python3-json \
     udev-extraconf \
 "
+RDEPENDS:${PN}:append:mx95-nxp-bsp = " iproute2-devlink"

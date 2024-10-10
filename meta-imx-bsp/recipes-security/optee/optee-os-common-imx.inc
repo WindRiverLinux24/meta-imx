@@ -33,8 +33,9 @@ OPTEEMACHINE:mx8dx-nxp-bsp     = "imx-mx8dxmek"
 OPTEEMACHINE:mx8dxl-nxp-bsp    = "imx-mx8dxlevk"
 OPTEEMACHINE:mx8mnul-nxp-bsp   = "imx-mx8mnevk"
 OPTEEMACHINE:mx8ulp-nxp-bsp    = "imx-mx8ulpevk"
-OPTEEMACHINE:mx91p-nxp-bsp     = "imx-mx93evk"
+OPTEEMACHINE:mx91-nxp-bsp      = "imx-mx91evk"
 OPTEEMACHINE:mx93-nxp-bsp      = "imx-mx93evk"
+OPTEEMACHINE:mx95-nxp-bsp      = "imx-mx95evk"
 
 # Strip the leading imx-
 PLATFORM_FLAVOR = "${@d.getVar('OPTEEMACHINE')[4:]}"

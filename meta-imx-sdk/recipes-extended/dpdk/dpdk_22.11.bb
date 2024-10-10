@@ -1,63 +1,48 @@
-# Splitter kernel module build in another recipe
-# Build tools and examples here
-include dpdk.inc
+DESCRIPTION = "Intel(r) Data Plane Development Kit"
+HOMEPAGE = "http://dpdk.org"
 
-DEPENDS = "numactl python3-pyelftools-native"
+LICENSE = "BSD-3-Clause & LGPL-2.1-only & GPL-2.0-only"
+LIC_FILES_CHKSUM = "file://license/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+                    file://license/lgpl-2.1.txt;md5=4b54a1fd55a448865a0b32d41598759d \
+                    file://license/bsd-3-clause.txt;md5=0f00d99239d922ffd13cabef83b33444"
+
+DEPENDS = "numactl python3-pyelftools-native libpcap"
+
+SRC_URI = "${DPDK_SRC};nobranch=1"
+DPDK_SRC ?= "git://github.com/nxp-qoriq/dpdk;protocol=https"
+
+STABLE = "-stable"
+SRCREV = "9298b898fe38482fbb293d431cdeea4297c17e70"
+
+CVE_PRODUCT = "data_plane_development_kit"
 
 S = "${WORKDIR}/git"
 
 inherit meson
 
-PACKAGECONFIG ??= " "
+PACKAGECONFIG ??= "examples"
+
 PACKAGECONFIG[afxdp] = ",,libbpf"
+PACKAGECONFIG[examples] = "-Denable_examples_bin_install=true -Dexamples=${DPDK_EXAMPLES},-Denable_examples_bin_install=false"
 PACKAGECONFIG[libvirt] = ",,libvirt"
 
-DPDK_EXAMPLES ?= "l2fwd,l3fwd,cmdif,l2fwd-qdma,l2fwd-crypto,ipsec-secgw,vhost,kni,ip_fragmentation,ip_reassembly"
+DPDK_EXAMPLES ?= ""
 DPDK_EXAMPLES:imx-nxp-bsp = "l2fwd,l3fwd"
+DPDK_EXAMPLES:append:mx95-nxp-bsp = ",ip_fragmentation,ip_reassembly"
 
-# kernel module is provide by dpdk-module recipe, so disable here
-EXTRA_OEMESON = " -Denable_kmods=false \
-                -Dexamples=${DPDK_EXAMPLES} \
-                --cross-file ${S}/config/arm/arm64_poky_linux_gcc \
+EXTRA_OEMESON = " \
+    -Ddrivers_install_subdir= \
+    -Denable_examples_source_install=false \
 "
+EXTRA_OEMESON:append:mx8-nxp-bsp = " --cross-file ${S}/config/arm/arm64_poky_linux_gcc"
+EXTRA_OEMESON:append:mx9-nxp-bsp = " --cross-file ${S}/config/arm/arm64_imx_poky_linux_gcc"
 
-do_install:append(){
-    # remove usr/lib/*.so
-    rm -rf ${D}/${libdir}/*.so*
-    rm -rf ${D}/${libdir}/dpdk
-
-    # remove  source files
-    rm -rf ${D}/${datadir}/dpdk/examples/*
-
-    # Install examples
-    install -m 0755 -d ${D}/${datadir}/dpdk/examples/
-    for dirname in ${B}/examples/dpdk-*
-    do
-        if [ ! -d ${dirname} ] && [ -x ${dirname} ]; then
-            install -m 0755 ${dirname} ${D}/${datadir}/dpdk/examples/
-        fi
-    done
+do_install:append() {
+    # FIXME: fix the source so it doesn't install this nonsense file with embedded wildcards
+    rm -f ${D}${libdir}/'librte_*.so*'
     cp -rf ${S}/nxp/* ${D}/${datadir}/dpdk/
 }
 
-PACKAGES =+ "${PN}-examples ${PN}-tools"
-
-FILES:${PN} = "${bindir}/dpdk-testpmd \
-               ${bindir}/dpdk-proc-info \
-"
-RDEPENDS:${PN} += "pciutils python3-core"
-
-FILES:${PN}-examples = " \
-                        ${datadir}/dpdk/examples/* \
-			${datadir}/dpdk/* \
-"
-RDEPENDS:${PN}-examples += "bash"
-
-FILES:${PN}-tools = " \
-                     ${bindir}/dpdk-pdump \
-                     ${bindir}/dpdk-test \
-                     ${bindir}/dpdk-test-* \
-                     ${bindir}/dpdk-*.py \
-"
+RDEPENDS:${PN} = "kernel-module-dpdk-extras pciutils python3-core"
 
 COMPATIBLE_MACHINE = "(imx-nxp-bsp|qoriq)"

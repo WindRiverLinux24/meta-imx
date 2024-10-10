@@ -2,7 +2,7 @@ require conf/distro/poky.conf
 
 DISTRO = "imx-nxp"
 DISTRO_NAME = "NXP i.MX Release Distro"
-DISTRO_VERSION = "6.6-nanbield"
+DISTRO_VERSION = "6.6-scarthgap"
 DISTROOVERRIDES = "fsl"
 
 MAINTAINER = "NXP <lauren.post@nxp.com>"
@@ -14,7 +14,7 @@ POKY_DEFAULT_DISTRO_FEATURES_IMX_REMOVE:mx7-nxp-bsp ?= "wayland vulkan"
 DISTRO_FEATURES:remove = "pulseaudio"
 
 POKY_DEFAULT_DISTRO_FEATURES:append = " ${POKY_DEFAULT_DISTRO_FEATURES_IMX_APPEND}"
-POKY_DEFAULT_DISTRO_FEATURES_IMX_APPEND             ?= "jailhouse"
+POKY_DEFAULT_DISTRO_FEATURES_IMX_APPEND             ?= "jailhouse xen"
 POKY_DEFAULT_DISTRO_FEATURES_IMX_APPEND:mx6-nxp-bsp ?= ""
 POKY_DEFAULT_DISTRO_FEATURES_IMX_APPEND:mx7-nxp-bsp ?= ""
 
@@ -31,10 +31,12 @@ DEFAULTTUNE:mx8qm-nxp-bsp  ?= "armv8a-crc-crypto"
 DEFAULTTUNE:mx8x-nxp-bsp   ?= "armv8a-crc-crypto"
 DEFAULTTUNE:mx8ulp-nxp-bsp ?= "armv8a-crc-crypto"
 DEFAULTTUNE:mx9-nxp-bsp    ?= "armv8a-crc-crypto"
-DEFAULTTUNE:mx91p-nxp-bsp  ?= "armv8a-crc-crypto"
+DEFAULTTUNE:mx91-nxp-bsp  ?= "armv8a-crc-crypto"
 DEFAULTTUNE:mx93-nxp-bsp   ?= "armv8a-crc-crypto"
 
 PACKAGECONFIG:append:pn-gstreamer1.0-plugins-ugly = " x264"
+
+PACKAGECONFIG:append:pn-perf = " jevents"
 
 PACKAGECONFIG:append:pn-pulseaudio = " autospawn-for-root"
 

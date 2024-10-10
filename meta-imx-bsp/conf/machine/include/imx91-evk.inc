@@ -2,12 +2,11 @@ require conf/machine/include/imx-base.inc
 require conf/machine/include/arm/armv8-2a/tune-cortexa55.inc
 
 MACHINE_FEATURES += "pci wifi bluetooth"
-MACHINE_FEATURES:append:use-nxp-bsp = " optee nxpwifi-all-sdio"
+MACHINE_FEATURES:append:use-nxp-bsp = " dpdk optee nxpwifi-all-sdio"
 
 KERNEL_DEVICETREE = " \
     freescale/${KERNEL_DEVICETREE_BASENAME}.dtb \
 "
-UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}.dtb"
 
 IMX_DEFAULT_BOOTLOADER:use-nxp-bsp = "u-boot-imx"
 IMX_DEFAULT_BOOTLOADER:use-mainline-bsp = "u-boot-fslc"
@@ -20,11 +19,9 @@ SPL_BINARY = "spl/u-boot-spl.bin"
 
 UBOOT_CONFIG ??= "sd"
 UBOOT_CONFIG[sd]   = "${UBOOT_CONFIG_BASENAME}_defconfig,sdcard"
-UBOOT_CONFIG[ecc]  = "${UBOOT_CONFIG_BASENAME}_inline_ecc_defconfig"
-UBOOT_CONFIG[ld]   = "${UBOOT_CONFIG_BASENAME}_ld_defconfig"
 
 # Set ATF platform name
-ATF_PLATFORM = "imx91p"
+ATF_PLATFORM = "imx91"
 
 IMXBOOT_TARGETS = "flash_singleboot"
 

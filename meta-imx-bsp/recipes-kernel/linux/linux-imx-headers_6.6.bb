@@ -7,11 +7,11 @@ New headers are installed in ${includedir}/imx."
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
-SRC_URI = "${KERNEL_SRC}"
-KERNEL_SRC ?= "git://github.com/nxp-imx/linux-imx.git;protocol=https;branch=${SRCBRANCH}"
+SRC_URI = "${LINUX_IMX_SRC}"
+LINUX_IMX_SRC ?= "git://github.com/nxp-imx/linux-imx.git;protocol=https;branch=${SRCBRANCH}"
 SRCBRANCH = "lf-6.6.y"
 LOCALVERSION = "-lts-${SRCBRANCH}"
-SRCREV = "ccf0a99701a701fb48a04e31ffe3f9d585a8374a"
+SRCREV = "d23d64eea5111e1607efcce1d601834fceec92cb"
 
 S = "${WORKDIR}/git"
 

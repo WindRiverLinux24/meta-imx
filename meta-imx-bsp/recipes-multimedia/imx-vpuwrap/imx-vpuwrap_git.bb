@@ -5,15 +5,15 @@
 DESCRIPTION = "Freescale Multimedia VPU wrapper"
 LICENSE = "Proprietary"
 SECTION = "multimedia"
-LIC_FILES_CHKSUM = "file://COPYING;md5=2827219e81f28aba7c6a569f7c437fa7"
+LIC_FILES_CHKSUM = "file://COPYING;md5=ca53281cc0caa7e320d4945a896fb837"
 
 DEPENDS = "virtual/imxvpu"
 DEPENDS:append:mx8mp-nxp-bsp = " imx-vpu-hantro-vc"
 
 SRC_URI = "${IMX_VPUWRAP_SRC};branch=${SRCBRANCH}"
 IMX_VPUWRAP_SRC ?= "git://github.com/NXP/imx-vpuwrap.git;protocol=https"
-SRCBRANCH = "MM_04.08.03_2312_L6.6.y"
-SRCREV = "f974cecdb00b4a214e4b5229f2279e772ee43306"
+SRCBRANCH = "MM_04.09.01_2408_L6.6.y"
+SRCREV = "c13069d239cae314adc3651df25b96afa46cb434"
 
 S = "${WORKDIR}/git"
 

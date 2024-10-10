@@ -7,6 +7,11 @@ PACKAGES += " \
 RDEPENDS:${PN}-fslcodec-testapps += " \
     imx-codec-test-bin \
     imx-codec-test-source \
+    ${RDEPENDS_CODEC_SRC} \
+"
+RDEPENDS_CODEC_SRC             = ""
+RDEPENDS_CODEC_SRC:mx9-nxp-bsp = " \
+    nxp-ssrc-test-source \
 "
 
 ALLOW_EMPTY:${PN}-fslcodec-testapps = "1"
@@ -16,26 +21,33 @@ SOC_TOOLS_TEST:append:imx-nxp-bsp    = " \
     imx-kobs \
     kernel-tools-iio \
     kernel-tools-pci \
+    kernel-tools-virtio \
+    kernel-tools-vsock \
     ${PN}-fslcodec-testapps \
 "
 
-SOC_TOOLS_TEST:append:mx8qm-nxp-bsp  = " imx-seco-libs dvbapp-tests"
-SOC_TOOLS_TEST:append:mx8x-nxp-bsp   = " imx-seco-libs"
-SOC_TOOLS_TEST:append:mx8m-nxp-bsp   = " kernel-tools-virtio"
-SOC_TOOLS_TEST:mx95-nxp-bsp   = "imx-test"
+SOC_TOOLS_TEST:append:mx8qm-nxp-bsp  = " dvbapp-tests"
+
+SOC_TOOLS_TEST:imxgpu  = "imx-test ${SOC_TOOLS_TEST_VIVANTE}"
+SOC_TOOLS_TEST_VIVANTE             = ""
+SOC_TOOLS_TEST_VIVANTE:mx6-nxp-bsp = "imx-gpu-viv-demos"
+SOC_TOOLS_TEST_VIVANTE:mx7-nxp-bsp = "imx-gpu-viv-demos"
+SOC_TOOLS_TEST_VIVANTE:mx8-nxp-bsp = "imx-gpu-viv-demos"
 
 RDEPENDS:${PN} += " \
+    bridge-utils \
     can-utils \
     coreutils \
     cpufrequtils \
     cryptodev-module \
     cryptodev-tests \
-    ${@bb.utils.contains('MACHINE_FEATURES', 'dpdk', 'dpdk dpdk-examples', '', d)} \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'dpdk', '${RDEPENDS_DPDK}', '', d)} \
     e2fsprogs-resize2fs \
     gnutls-bin \
     iw \
     libp11 \
     linuxptp \
+    media-ctl \
     minicom \
     mmc-utils \
     nano \
@@ -57,3 +69,7 @@ RDEPENDS:${PN} += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-examples', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wifi', 'hostapd sigma-dut', '', d)} \
 "
+
+RDEPENDS_DPDK ?= "dpdk ${RDEPENDS_DPDK_FPR}"
+RDEPENDS_DPDK_FPR = ""
+RDEPENDS_DPDK_FPR:mx95-nxp-bsp = "dpdk-fpr"

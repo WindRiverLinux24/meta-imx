@@ -1,4 +1,4 @@
-# Copyright 2023 NXP
+# Copyright 2023-2024 NXP
 
 SUMMARY = "NXP i.MX EdgeLock 2GO IoT Agent"
 DESCRIPTION = "NXP i.MX EdgeLock 2GO IoT Agent"
@@ -13,8 +13,10 @@ SRC_URI = "${EL2GO_AGENT_SRC};branch=${EL2GO_AGENT_SRCBRANCH}"
 EL2GO_AGENT_SRC ?= "git://github.com/NXP/el2go-agent;protocol=https"
 EL2GO_AGENT_SRCBRANCH ?= "master"
 
-SRCREV = "eb57e0121788452ac336bc41383c7db5c5d70b7b"
+SRCREV = "54bd67ea2f47d56af8db378497b1dde6394ac0d6"
 S = "${WORKDIR}/git"
+
+PV = "5.2.1+git${SRCPV}"
 
 inherit cmake
 
@@ -29,6 +31,7 @@ EXTRA_OECMAKE = " \
     -DSSS_HAVE_MBEDTLS_ALT_PSA=ON \
     -DSSS_HAVE_HOST_LINUX_LIKE=ON \
     -DCMAKE_SYSROOT=${STAGING_DIR_HOST} \
+    -DMbedTLS_DIR=${STAGING_DIR_HOST}/usr/local/el2go/lib/cmake/MbedTLS \
     -DNXP_SMW_DIR=${STAGING_DIR_HOST}/usr/lib/cmake"
 
 CFLAGS:append = " -DMBEDTLS_SSL_MAX_CONTENT_LEN=4096"

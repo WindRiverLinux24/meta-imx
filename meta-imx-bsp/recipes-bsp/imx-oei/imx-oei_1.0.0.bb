@@ -1,7 +1,7 @@
 SUMMARY = "i.MX Optional Execution Image"
 
-LICENSE = "GPL-2.0-only"
-LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=59530bdf33659b29e73d4adb9f9f6552"
+LICENSE = "BSD-3-Clause"
+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=b66f32a90f9577a5a3255c21d79bc619"
 
 INHIBIT_DEFAULT_DEPS = "1"
 DEPENDS = "gcc-arm-none-eabi-native"
@@ -9,7 +9,7 @@ DEPENDS = "gcc-arm-none-eabi-native"
 SRC_URI = "${IMX_OEI_SRC};branch=${SRCBRANCH}"
 IMX_OEI_SRC ?= "git://github.com/nxp-imx/imx-oei.git;protocol=https"
 SRCBRANCH = "master"
-SRCREV = "4aa8742a8aa12247f94b05805f084e5e30a1b5e8"
+SRCREV = "5fca9f47544d03c52ca371eadfffbfd2454e6925"
 
 S = "${WORKDIR}/git"
 

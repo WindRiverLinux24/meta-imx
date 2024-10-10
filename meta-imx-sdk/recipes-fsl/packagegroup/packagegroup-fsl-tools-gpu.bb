@@ -15,8 +15,10 @@ RDEPENDS:${PN} = " \
 "
 
 RDEPENDS:${PN}:append:imxgpu = " ${GLES1_PACKAGE}"
-GLES1_PACKAGE              = "libgles1-imx"
-GLES1_PACKAGE:mx95-nxp-bsp = "mali-imx-libgles1 mali-imx-libgles1-dev"
+GLES1_PACKAGE             = ""
+GLES1_PACKAGE:mx6-nxp-bsp = "libgles1-imx"
+GLES1_PACKAGE:mx7-nxp-bsp = "libgles1-imx"
+GLES1_PACKAGE:mx8-nxp-bsp = "libgles1-imx"
 
 SOC_TOOLS_DRM ??= ""
 SOC_TOOLS_DRM:imxdrm ??= " \
@@ -24,23 +26,22 @@ SOC_TOOLS_DRM:imxdrm ??= " \
 
 SOC_TOOLS_GPU ??= ""
 SOC_TOOLS_GPU:imxgpu ??= " \
+    gputop \
     imx-gpu-sdk \
     ${SOC_TOOLS_GPU_APITRACE} \
     ${SOC_TOOLS_GPU_MALI} \
     ${SOC_TOOLS_GPU_VIVANTE}"
 
-SOC_TOOLS_GPU_MALI = ""
-SOC_TOOLS_GPU_MALI:mx95-nxp-bsp = " \
-    mali-imx-dev \
-    mali-imx-libopencl-dev \
-"
-
-SOC_TOOLS_GPU_VIVANTE = " \
-    gputop \
-    imx-gpu-viv-tools \
-"
-SOC_TOOLS_GPU_VIVANTE:mx95-nxp-bsp = ""
-
 SOC_TOOLS_GPU_APITRACE = ""
 SOC_TOOLS_GPU_APITRACE:imxgpu3d = " \
     imx-gpu-apitrace"
+
+SOC_TOOLS_GPU_MALI = ""
+SOC_TOOLS_GPU_MALI:mx95-nxp-bsp = " \
+    mali-imx-dev \
+    mali-imx-opencl-icd-dev \
+    patrace"
+
+SOC_TOOLS_GPU_VIVANTE = " \
+    imx-gpu-viv-tools"
+SOC_TOOLS_GPU_VIVANTE:mx95-nxp-bsp = ""

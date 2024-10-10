@@ -33,13 +33,12 @@ RREPLACES:${PN}  = "gst1.0-fsl-plugin"
 RPROVIDES:${PN}  = "gst1.0-fsl-plugin"
 RCONFLICTS:${PN} = "gst1.0-fsl-plugin"
 
-PV = "4.8.3+git${SRCPV}"
+PV = "4.9.1+git${SRCPV}"
 
-SRC_URI = "${IMXGST_SRC};branch=${SRCBRANCH} \
-           file://0011-meson-Undef-_TIME_BITS-along-with-_FILE_OFFSET_BITS.patch"
+SRC_URI = "${IMXGST_SRC};branch=${SRCBRANCH}"
 IMXGST_SRC ?= "git://github.com/nxp-imx/imx-gst1.0-plugin.git;protocol=https"
-SRCBRANCH = "MM_04.08.03_2312_L6.6.y"
-SRCREV = "91c7fec888cf8932c91e354331aad94975cae3ff"
+SRCBRANCH = "MM_04.09.01_2408_L6.6.y"
+SRCREV = "87135d5f084b6c61efa6671cddc3a5509ab11640"
 
 S = "${WORKDIR}/git"
 

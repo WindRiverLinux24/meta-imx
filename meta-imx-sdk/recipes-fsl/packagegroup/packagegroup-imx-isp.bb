@@ -1,4 +1,4 @@
-# Copyright 2020 NXP
+# Copyright 2020,2024 NXP
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 DESCRIPTION = "Add packages for ISP build"
@@ -15,6 +15,10 @@ ISP_PKGS:mx8mp-nxp-bsp = " \
     basler-camera \
     basler-camera-dev \
     kernel-module-isp-vvcam \
+"
+ISP_PKGS:mx95-nxp-bsp = " \
+    libcamera \
+    libcamera-gst \
 "
 RDEPENDS:${PN} = " \
     ${ISP_PKGS} \

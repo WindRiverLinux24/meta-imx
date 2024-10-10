@@ -8,45 +8,16 @@ and then starts other cores in the system. After starting these cores, it \
 enters a service mode where it provides access to clocking, power, sensor, \
 and pin control via a client RPC API based on ARM's System Control and \
 Management Interface (SCMI)."
-
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=0858ec9c7a80c4a2cf16e4f825a2cc91"
-
-INHIBIT_DEFAULT_DEPS = "1"
-DEPENDS = "gcc-arm-none-eabi-native"
+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=b66f32a90f9577a5a3255c21d79bc619"
 
 SRC_URI = "${IMX_SYSTEM_MANAGER_SRC};branch=${SRCBRANCH}"
 IMX_SYSTEM_MANAGER_SRC ?= "git://github.com/nxp-imx/imx-sm.git;protocol=https"
 SRCBRANCH = "master"
-SRCREV = "7896a71b9d689659a2ce6a13db0dc71c99c94f0c"
+SRCREV = "709deccd9338399eb39b5cf99a60eab4fa60d539"
 
 S = "${WORKDIR}/git"
 
-inherit deploy
+require imx-system-manager.inc
 
-SYSTEM_MANAGER_CONFIG ?= "UNDEFINED"
-
-LDFLAGS[unexport] = "1"
-
-EXTRA_OEMAKE = " \
-    V=y \
-    config=${SYSTEM_MANAGER_CONFIG} \
-    SM_CROSS_COMPILE=arm-none-eabi-"
-
-do_compile() {
-    oe_runmake img
-}
-
-do_install() {
-    install -D -p -m 0644 ${B}/build/${SYSTEM_MANAGER_CONFIG}/m33_image.bin ${D}/firmware/m33_image.bin
-}
-
-addtask deploy after do_install
-do_deploy() {
-    cp -rf ${D}/firmware/* ${DEPLOYDIR}/
-}
-
-FILES:${PN} = "/firmware"
-SYSROOT_DIRS += "/firmware"
-
-COMPATIBLE_MACHINE = "(mx95-generic-bsp)"
+PACKAGECONFIG ??= "m2"

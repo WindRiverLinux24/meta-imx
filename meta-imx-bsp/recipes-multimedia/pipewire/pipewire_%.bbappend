@@ -1,14 +1,9 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+# Disable pipewire-v4l2 on 32-bit to avoid Y2038 bug
+PACKAGECONFIG:append = " ${PACKAGECONFIG_PIPEWIRE_V4L2}"
+PACKAGECONFIG_PIPEWIRE_V4L2             = "pipewire-v4l2"
+PACKAGECONFIG_PIPEWIRE_V4L2:arm:imx-nxp-bsp = ""
+PACKAGECONFIG[pipewire-v4l2] = "-Dpipewire-v4l2=enabled,-Dpipewire-v4l2=disabled"
 
-SRC_URI:append:imx-nxp-bsp = " file://0001-launch-allow-pipewire-pulse-can-be-started-by-root.patch"
-
-SYSTEMD_AUTO_ENABLE = "disable"
-
-DEPENDS:append:mx95-nxp-bsp = " libdrm"
-
-PACKAGECONFIG:remove:mx95-nxp-bsp = "libcamera"
-PACKAGECONFIG:remove = "gstreamer"
-PACKAGECONFIG:class-target:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', 'bluez-lc3', '', d)}"
-
-# FIXME: Needs to qualify on PACKAGECONFIG
-SYSTEMD_SERVICE:${PN}-pulse = "pipewire-pulse.service"
+GLIBC_64BIT_TIME_FLAGS:arm:imx-nxp-bsp = " \
+    ${@bb.utils.contains('PACKAGECONFIG', 'pipewire-v4l2', '', ' -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64', d)}"
+INSANE_SKIP:remove:imx-nxp-bsp = "32bit-time"
