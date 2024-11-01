@@ -40,6 +40,7 @@ EXTRA_OEMESON:append:mx9-nxp-bsp = " --cross-file ${S}/config/arm/arm64_imx_poky
 do_install:append() {
     # FIXME: fix the source so it doesn't install this nonsense file with embedded wildcards
     rm -f ${D}${libdir}/'librte_*.so*'
+    install -m 0755 -d ${D}/${datadir}/dpdk/
     cp -rf ${S}/nxp/* ${D}/${datadir}/dpdk/
 }
 
