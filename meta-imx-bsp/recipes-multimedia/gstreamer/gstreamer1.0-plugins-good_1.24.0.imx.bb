@@ -40,6 +40,13 @@ SRC_URI = "https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-go
            file://0022-jpegdec-Directly-error-out-on-negotiation-failures.patch \
            file://0023-qtdemux-Avoid-integer-overflow-when-parsing-Theora-e.patch \
            file://0024-avisubtitle-Fix-size-checks-and-avoid-overflows-when.patch \
+           file://0025-wavparse-Check-for-short-reads-when-parsing-headers-.patch \
+           file://0026-wavparse-Make-sure-enough-data-for-the-tag-list-tag-.patch \
+           file://0027-wavparse-Fix-parsing-of-acid-chunk.patch \
+           file://0028-wavparse-Check-that-at-least-4-bytes-are-available-b.patch \
+           file://0029-wavparse-Check-that-at-least-32-bytes-are-available-.patch \
+           file://0030-wavparse-Fix-clipping-of-size-to-the-file-size.patch \
+           file://0031-wavparse-Check-size-before-reading-ds64-chunk.patch \
 "
 
 SRC_URI[sha256sum] = "b67b31313a54c6929b82969d41d3cfdf2f58db573fb5f491e6bba5d84aea0778"
