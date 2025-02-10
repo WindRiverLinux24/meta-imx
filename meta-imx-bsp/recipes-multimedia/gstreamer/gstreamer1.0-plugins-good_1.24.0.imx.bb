@@ -11,9 +11,25 @@ SUMMARY = "'Good' GStreamer plugins"
 HOMEPAGE = "https://gstreamer.freedesktop.org/"
 BUGTRACKER = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-good/-/issues"
 
+FILESEXTRAPATHS:prepend := "${COREBASE}/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-good:"
+
 SRC_URI = "https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-${PV}.tar.xz \
            file://0001-qt-include-ext-qt-gstqtgl.h-instead-of-gst-gl-gstglf.patch \
-           file://0001-v4l2-Define-ioctl_req_t-for-posix-linux-case.patch"
+           file://0001-v4l2-Define-ioctl_req_t-for-posix-linux-case.patch \
+           file://0001-qtdemux-Skip-zero-sized-boxes-instead-of-stopping-to.patch \
+           file://0002-qtdemux-Fix-integer-overflow-when-allocating-the-sam.patch \
+           file://0003-qtdemux-Fix-debug-output-during-trun-parsing_imx.patch \
+           file://0004-qtdemux-Don-t-iterate-over-all-trun-entries-if-none-.patch \
+           file://0005-qtdemux-Check-sizes-of-stsc-stco-stts-before-trying-.patch \
+           file://0006-qtdemux-Make-sure-only-an-even-number-of-bytes-is-pr.patch \
+           file://0007-qtdemux-Make-sure-enough-data-is-available-before-re.patch \
+           file://0008-qtdemux-Fix-length-checks-and-offsets-in-stsd-entry-.patch \
+           file://0009-qtdemux-Fix-error-handling-when-parsing-cenc-sample-.patch \
+           file://0010-qtdemux-Make-sure-there-are-enough-offsets-to-read-w.patch \
+           file://0011-qtdemux-Actually-handle-errors-returns-from-various-.patch \
+           file://0012-qtdemux-Check-for-invalid-atom-length-when-extractin.patch \
+           file://0013-qtdemux-Add-size-check-for-parsing-SMI-SEQH-atom.patch \
+"
 
 SRC_URI[sha256sum] = "b67b31313a54c6929b82969d41d3cfdf2f58db573fb5f491e6bba5d84aea0778"
 
