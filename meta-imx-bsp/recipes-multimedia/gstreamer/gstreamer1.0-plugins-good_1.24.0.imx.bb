@@ -38,6 +38,7 @@ SRC_URI = "https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-go
            file://0020-matroskademux-Skip-over-zero-sized-Xiph-stream-heade.patch \
            file://0021-matroskademux-Put-a-copy-of-the-codec-data-into-the-.patch \
            file://0022-jpegdec-Directly-error-out-on-negotiation-failures.patch \
+           file://0023-qtdemux-Avoid-integer-overflow-when-parsing-Theora-e.patch \
 "
 
 SRC_URI[sha256sum] = "b67b31313a54c6929b82969d41d3cfdf2f58db573fb5f491e6bba5d84aea0778"
