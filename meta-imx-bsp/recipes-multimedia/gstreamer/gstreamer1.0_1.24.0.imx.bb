@@ -22,12 +22,15 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=69333daa044cb77e486cc36129f7a770 \
 
 S = "${WORKDIR}/gstreamer-${PV}"
 
+FILESEXTRAPATHS:prepend := "${COREBASE}/meta/recipes-multimedia/gstreamer/gstreamer1.0:"
+
 SRC_URI = "https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-${PV}.tar.xz \
            file://run-ptest \
            file://0001-tests-respect-the-idententaion-used-in-meson.patch \
            file://0002-tests-add-support-for-install-the-tests.patch \
            file://0003-tests-use-a-dictionaries-for-environment.patch;striplevel=3 \
            file://0004-tests-add-helper-script-to-run-the-installed_tests.patch;striplevel=3 \
+           file://0005-allocator-Avoid-integer-overflow-when-allocating-sys_imx.patch \
            "
 SRC_URI[sha256sum] = "4408d7930f381809e85917acc19712f173261ba85bdf20c5567b2a21b1193b61"
 
