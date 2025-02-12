@@ -23,6 +23,8 @@ SRC_URI = "https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-ba
            file://0005-opusdec-Set-at-most-64-channels-to-NONE-position.patch \
            file://0006-vorbis_parse-check-writes-to-GstOggStream.vorbis_mod.patch \
            file://0007-oggstream-review-and-fix-per-format-min_packet_size.patch \
+           file://0008-ssaparse-Search-for-closing-brace-after-opening-brac.patch \
+           file://0009-ssaparse-Don-t-use-strstr-on-strings-that-are-potent.patch \
            "
 SRC_URI[sha256sum] = "edd4338b45c26a9af28c0d35aab964a024c3884ba6f520d8428df04212c8c93a"
 
