@@ -12,6 +12,10 @@ SRCBRANCH = "lf_v2024.04"
 LOCALVERSION ?= "-${SRCBRANCH}"
 SRCREV = "de16f4f17221b2ff72b8cb18c28cd8a29f3c2710"
 
+FILESEXTRAPATHS:prepend := "${COREBASE}/meta/recipes-bsp/u-boot/files:"
+SRC_URI += "file://CVE-2024-57254.patch \
+"
+
 DEPENDS += " \
     bc-native \
     bison-native \
