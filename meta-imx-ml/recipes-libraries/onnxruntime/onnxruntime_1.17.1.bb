@@ -12,6 +12,7 @@ inherit setuptools3
 
 SRC_URI = "${ONNXRUNTIME_SRC};branch=${SRCBRANCH} \
            file://0001-deps-Update-SHA256-checksum-for-Eigen-download.patch \
+           file://0001-Fix-for-gcc-13.3.1-Avoid-creating-a-copy-23500.patch \
 "
 ONNXRUNTIME_SRC ?= "gitsm://github.com/nxp-imx/onnxruntime-imx.git;protocol=https"
 SRCBRANCH = "lf-6.6.36_2.1.0"

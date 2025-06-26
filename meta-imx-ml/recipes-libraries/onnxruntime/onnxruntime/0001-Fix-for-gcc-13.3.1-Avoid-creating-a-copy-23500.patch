@@ -1,0 +1,60 @@
+From fdde2e25e138e00b61faea158b4650f58331433a Mon Sep 17 00:00:00 2001
+From: Malik Shahzad Muzaffar <shahzad.malik.muzaffar@cern.ch>
+Date: Mon, 27 Jan 2025 22:35:18 +0100
+Subject: [PATCH] Fix for gcc 13.3.1: Avoid creating a copy (#23500)
+
+### Description
+This change avoids creating loop variable copy. GCC 13.3 suggests to use
+reference type to prevent copying.
+
+
+### Motivation and Context
+While building onnxruntime 1.20.1 with latest changes from gcc 13.3, I
+get build error like
+```
+onnxruntime-1.20.1/onnxruntime/core/optimizer/selectors_actions/selector_action_transformer.cc: In function 'onnxruntime::common::Status onnxruntime::MatchAndProcess(Graph&, const GraphViewer&, Node&, bool&, const logging::Logger&, const std::string&, const SelectorActionRegistry&, const SatRuntimeOptimizationSaveContext*)':
+onnxruntime-1.20.1/onnxruntime/core/optimizer/selectors_actions/selector_action_transformer.cc:150:23: error: loop variable 'op_schema' creates a copy from type 'const gsl::not_null<const onnx::OpSchema*>' [-Werror=range-loop-construct]
+  150 |       for (const auto op_schema : action_saved_state.produced_node_op_schemas) {
+      |                       ^~~~~~~~~
+onnxruntime-1.20.1/onnxruntime/core/optimizer/selectors_actions/selector_action_transformer.cc:150:23: note: use reference type to prevent copying
+  150 |       for (const auto op_schema : action_saved_state.produced_node_op_schemas) {
+      |                       ^~~~~~~~~
+      |                       &
+```
+Upstream-Status: Backport [https://github.com/microsoft/onnxruntime/commit/fdde2e25e138e00b61faea158b4650f58331433a]
+
+Signed-off-by: Ruiqiang Hao <Ruiqiang.Hao@windriver.com>
+---
+ .../optimizer/selectors_actions/selector_action_transformer.cc  | 2 +-
+ onnxruntime/core/session/inference_session.cc                   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/onnxruntime/core/optimizer/selectors_actions/selector_action_transformer.cc b/onnxruntime/core/optimizer/selectors_actions/selector_action_transformer.cc
+index b68cbaf85b..b1d6c51f69 100644
+--- a/onnxruntime/core/optimizer/selectors_actions/selector_action_transformer.cc
++++ b/onnxruntime/core/optimizer/selectors_actions/selector_action_transformer.cc
+@@ -147,7 +147,7 @@ static Status MatchAndProcess(
+       RuntimeOptimizationRecord::ProducedOpIdVector produced_op_ids{};
+       produced_op_ids.reserve(action_saved_state.produced_node_op_schemas.size());
+ 
+-      for (const auto op_schema : action_saved_state.produced_node_op_schemas) {
++      for (const auto& op_schema : action_saved_state.produced_node_op_schemas) {
+         produced_op_ids.push_back(utils::MakeOpId(*op_schema));
+         if (save_context->record_produced_node_op_schema) {
+           status = save_context->record_produced_node_op_schema(*op_schema);
+diff --git a/onnxruntime/core/session/inference_session.cc b/onnxruntime/core/session/inference_session.cc
+index 223eed2488..26ffeb93ab 100644
+--- a/onnxruntime/core/session/inference_session.cc
++++ b/onnxruntime/core/session/inference_session.cc
+@@ -921,7 +921,7 @@ common::Status InferenceSession::SaveToOrtFormat(const std::filesystem::path& fi
+   ORT_RETURN_IF_ERROR(kernel_type_str_resolver.RegisterGraphNodeOpSchemas(model_->MainGraph()));
+   ORT_RETURN_IF_ERROR(standalone::RegisterCustomOpNodeSchemas(kernel_type_str_resolver, model_->MainGraph()));
+ 
+-  for (const auto op_schema : saved_runtime_optimization_produced_node_op_schemas_) {
++  for (const auto& op_schema : saved_runtime_optimization_produced_node_op_schemas_) {
+     ORT_RETURN_IF_ERROR(kernel_type_str_resolver.RegisterOpSchema(*op_schema));
+   }
+ 
+-- 
+2.43.0
+
