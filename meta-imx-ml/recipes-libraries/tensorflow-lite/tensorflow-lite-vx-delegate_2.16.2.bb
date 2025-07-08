@@ -39,6 +39,7 @@ do_configure:prepend() {
     export HTTPS_PROXY=${https_proxy}
     export http_proxy=${http_proxy}
     export https_proxy=${https_proxy}
+    export GIT_SSL_CAINFO=${GIT_SSL_CAINFO}
 
     # There is no Fortran compiler in the toolchain, but bitbake sets this variable anyway
     # with unavailable binary.
